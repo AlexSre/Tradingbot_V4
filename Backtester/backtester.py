@@ -18,6 +18,9 @@ def is_session_allowed(current_time):
 def backtest_supertrend(symbol, timeframe, start_date, end_date):
     best_params = {}
     max_profit = float('-inf')
+    rejected_params = []
+    total_params_tested = 0
+
     point = mt5.symbol_info(symbol).point
 
     for atr_period in range(5, 15):
@@ -27,6 +30,8 @@ def backtest_supertrend(symbol, timeframe, start_date, end_date):
                     for rsi_period in range(10, 20, 5):
                         for rsi_low in range(25, 40, 5):
                             for rsi_high in range(60, 75, 5):
+                                total_params_tested += 1
+
                                 params = {
                                     "supertrend_period": atr_period,
                                     "supertrend_multiplier": multiplier,
@@ -56,13 +61,15 @@ def backtest_supertrend(symbol, timeframe, start_date, end_date):
 
                                     risk_manager.update_day(row.name, balance)
 
-                                    if risk_manager.is_max_total_loss_exceeded(balance):
-                                        log_error(f"Max total loss exceeded. Skipping params: {params}")
-                                        balance = -999999
-                                        break
+                                    if FUNDED_MODE:
+                                        if risk_manager.is_max_total_loss_exceeded(balance):
+                                            log_error(f"Max total loss exceeded. Skipping params: {params}")
+                                            rejected_params.append(params)
+                                            balance = -999999
+                                            break
 
-                                    if risk_manager.is_daily_loss_exceeded(balance):
-                                        continue  # Skip trading rest of day
+                                        if risk_manager.is_daily_loss_exceeded(balance):
+                                            continue  # Skip trading for rest of the day
 
                                     if row.name.weekday() in WEEKEND_DAYS:
                                         continue
@@ -115,13 +122,28 @@ def backtest_supertrend(symbol, timeframe, start_date, end_date):
                                     max_profit = balance - START_BALANCE
                                     best_params = params
 
-    log_info(f"Best parameters: {best_params} with profit: {max_profit}")
-
+    # --- Save results ---
     if not os.path.exists("results"):
         os.makedirs("results")
 
     with open("results/best_params.json", "w") as f:
-        json.dump(best_params, f)
+        json.dump(best_params, f, indent=4)
+
+    with open("results/rejected_params.json", "w") as f:
+        json.dump(rejected_params, f, indent=4)
+
+    summary = {
+        "best_params": best_params,
+        "best_profit": max_profit,
+        "total_params_tested": total_params_tested,
+        "total_rejected_params": len(rejected_params),
+        "total_accepted_params": total_params_tested - len(rejected_params)
+    }
+
+    with open("results/final_backtest_summary.json", "w") as f:
+        json.dump(summary, f, indent=4)
+
+    log_info(f"Backtest completed: {summary}")
 
 if __name__ == "__main__":
     if not initialize_mt5():

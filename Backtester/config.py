@@ -7,7 +7,7 @@ MT5_PASSWORD = "WhZcQg!4"
 MT5_SERVER = "MetaQuotes-Demo"
 
 # --- Trading Settings ---
-LOT_SIZE = 0.3
+LOT_SIZE = 0.9
 TRAILING_STOP_TRIGGER_PIPS = 50
 TRAILING_STOP_DISTANCE_PIPS = 30
 
@@ -17,7 +17,7 @@ DAILY_MAX_LOSS_PERCENT = 4.5  # Daily loss limit (% of start balance)
 MAX_TOTAL_LOSS_PERCENT = 10.0  # Max loss allowed on total balance (% of start balance)
 
 # --- Trading Behavior ---
-FUNDED_MODE =False # Enable/disable daily/max loss protection
+FUNDED_MODE =True # Enable/disable daily/max loss protection
 
 # --- Backtest Settings ---
 MANUAL_TIMEFRAME = mt5.TIMEFRAME_M5

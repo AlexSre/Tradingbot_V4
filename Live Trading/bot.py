@@ -10,6 +10,8 @@ from strategy import calculate_indicators
 from config import Bars, TRADE_FREQUENCY_SECONDS, USE_MT5_CHART, MANUAL_SYMBOL, MANUAL_TIMEFRAME, FUNDED_MODE, MAX_DAILY_DRAWDOWN_PERCENT
 from utils import log_info, log_error, DailyLossManager
 import json
+from funded_risk import DailyLossManager
+
 
 # Initialize MT5
 if not initialize_mt5():
@@ -45,13 +47,13 @@ except Exception as e:
 
 
 account_info = mt5.account_info()
-daily_loss_manager = None
+daily_loss_manager = DailyLossManager()
 
-if FUNDED_MODE:
-    daily_loss_manager = DailyLossManager(account_info.balance, 5.0)  # 5% stop loss
-    log_info("FUNDED MODE ENABLED: Daily loss limit protection active.")
-else:
-    log_info("FUNDED MODE DISABLED: Daily loss check bypassed.")
+
+if FUNDED_MODE and daily_loss_manager.should_stop_bot():
+    log_error("Daily loss limit exceeded. Stopping bot immediately.")
+    shutdown_mt5()
+    exit()
 
 while True:
     if os.path.exists("stop.flag"):

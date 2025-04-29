@@ -1,0 +1,15 @@
+{
+    "best_params": {
+        "supertrend_period": 11,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 10,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    "best_profit": 5184.900000000302,
+    "total_params_tested": 4320,
+    "total_rejected_params": 117,
+    "total_accepted_params": 4203
+}

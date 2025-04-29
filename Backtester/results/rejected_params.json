@@ -1,0 +1,1055 @@
+[
+    {
+        "supertrend_period": 5,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 5,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 5,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 5,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 5,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 5,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 5,
+        "supertrend_multiplier": 3,
+        "adx_period": 15,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 5,
+        "supertrend_multiplier": 3,
+        "adx_period": 15,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 5,
+        "supertrend_multiplier": 3,
+        "adx_period": 15,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 5,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 5,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 5,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 6,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 65
+    },
+    {
+        "supertrend_period": 6,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 6,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 65
+    },
+    {
+        "supertrend_period": 6,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 6,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 65
+    },
+    {
+        "supertrend_period": 6,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 6,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 6,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 6,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 7,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 7,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 7,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 7,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 65
+    },
+    {
+        "supertrend_period": 7,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 7,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 65
+    },
+    {
+        "supertrend_period": 7,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 7,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 65
+    },
+    {
+        "supertrend_period": 7,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 7,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 7,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 7,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 8,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 8,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 8,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 8,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 65
+    },
+    {
+        "supertrend_period": 8,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 8,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 65
+    },
+    {
+        "supertrend_period": 8,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 8,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 65
+    },
+    {
+        "supertrend_period": 8,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 8,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 8,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 8,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 9,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 9,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 9,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 9,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 65
+    },
+    {
+        "supertrend_period": 9,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 9,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 65
+    },
+    {
+        "supertrend_period": 9,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 9,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 65
+    },
+    {
+        "supertrend_period": 9,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 9,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 9,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 9,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 10,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 10,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 10,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 10,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 65
+    },
+    {
+        "supertrend_period": 10,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 10,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 65
+    },
+    {
+        "supertrend_period": 10,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 10,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 65
+    },
+    {
+        "supertrend_period": 10,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 10,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 10,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 10,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 11,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 11,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 11,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 11,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 11,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 11,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 11,
+        "supertrend_multiplier": 3,
+        "adx_period": 15,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 11,
+        "supertrend_multiplier": 3,
+        "adx_period": 15,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 11,
+        "supertrend_multiplier": 3,
+        "adx_period": 15,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 11,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 11,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 11,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 12,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 12,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 12,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 12,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 12,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 12,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 12,
+        "supertrend_multiplier": 3,
+        "adx_period": 15,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 12,
+        "supertrend_multiplier": 3,
+        "adx_period": 15,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 12,
+        "supertrend_multiplier": 3,
+        "adx_period": 15,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 12,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 12,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 12,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 13,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 13,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 13,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 13,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 13,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 13,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 13,
+        "supertrend_multiplier": 3,
+        "adx_period": 15,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 13,
+        "supertrend_multiplier": 3,
+        "adx_period": 15,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 13,
+        "supertrend_multiplier": 3,
+        "adx_period": 15,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 13,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 13,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 13,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 14,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 14,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 14,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 14,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 14,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 14,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 14,
+        "supertrend_multiplier": 3,
+        "adx_period": 15,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 14,
+        "supertrend_multiplier": 3,
+        "adx_period": 15,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 14,
+        "supertrend_multiplier": 3,
+        "adx_period": 15,
+        "adx_threshold": 20,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 14,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 14,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70
+    },
+    {
+        "supertrend_period": 14,
+        "supertrend_multiplier": 5,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 35,
+        "rsi_overbought": 70
+    }
+]

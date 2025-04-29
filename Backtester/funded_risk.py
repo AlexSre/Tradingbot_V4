@@ -1,22 +1,23 @@
 from config import START_BALANCE, DAILY_MAX_LOSS_PERCENT, MAX_TOTAL_LOSS_PERCENT, FUNDED_MODE
 import MetaTrader5 as mt5
 import datetime
-import pandas as pd
 import pytz
+import pytz
+import pandas as pd
 
 # --- Daily Loss Manager (for live trading) ---
 class DailyLossManager:
     def __init__(self):
         self.initial_balance = START_BALANCE
         self.max_daily_loss = self.initial_balance * (DAILY_MAX_LOSS_PERCENT / 100)
-        self.today = self.get_cest_now().date()
+        self.today = self.get_berlin_now().date()
 
-    def get_cest_now(self):
-        cest = pytz.timezone('Europe/Berlin')  # CE(S)T timezone
-        return datetime.datetime.now(cest)
+    def get_berlin_now(self):
+        berlin = pytz.timezone('Europe/Berlin')
+        return datetime.datetime.now(berlin)
 
     def update_day(self):
-        now = self.get_cest_now()
+        now = self.get_berlin_now()
         if now.date() != self.today:
             self.today = now.date()
 
@@ -26,7 +27,9 @@ class DailyLossManager:
         utc_from = datetime.datetime.combine(self.today, datetime.time(0, 0))
         utc_from = utc_from.replace(tzinfo=pytz.UTC)
 
-        deals = mt5.history_deals_get(utc_from, self.get_cest_now())
+        now = self.get_berlin_now()
+
+        deals = mt5.history_deals_get(utc_from, now)
         closed_pnl = sum(deal.profit for deal in deals) if deals else 0.0
 
         positions = mt5.positions_get()
@@ -39,9 +42,10 @@ class DailyLossManager:
             return False
 
         total_loss = self.get_current_daily_loss()
+        print(f"[RISK CHECK] Today's closed + floating P/L = {total_loss:.2f} USD (Limit: -{self.max_daily_loss:.2f} USD)")
         return total_loss <= -self.max_daily_loss
 
-# --- Backtest Risk Manager (for simulations) ---
+# --- Backtest Risk Manager (for simulation) ---
 class BacktestRiskManager:
     def __init__(self):
         self.start_balance = START_BALANCE
