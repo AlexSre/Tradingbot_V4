@@ -2,13 +2,8 @@ import MetaTrader5 as mt5
 import pandas as pd
 import os
 import json
-import multiprocessing
-from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime
-from config import (
-    START_BALANCE, BACKTEST_START_DATE, BACKTEST_END_DATE,
-    SYMBOL_LIST, TIMEFRAME_LIST, FUNDED_MODE, WEEKEND_DAYS, ALLOWED_SESSIONS
-)
+from config import *
 from utils import log_info, log_error
 from mt5_connector import fetch_historical_data, initialize_mt5, shutdown_mt5
 from strategy import calculate_indicators
@@ -22,12 +17,9 @@ def is_session_allowed(current_time):
 
 def backtest_combo(args):
     symbol, timeframe = args
-    best_params = {}
-    max_profit = float('-inf')
-    rejected_params = []
-    total_params_tested = 0
+
     if not mt5.symbol_select(symbol, True):
-        log_error(f"Failed to select symbol {symbol}")
+        log_error(f"[ERROR] Failed to select symbol {symbol}")
         return {
             "symbol": symbol,
             "timeframe": timeframe,
@@ -39,7 +31,7 @@ def backtest_combo(args):
 
     info = mt5.symbol_info(symbol)
     if info is None:
-        log_error(f"Symbol info not found for {symbol}")
+        log_error(f"[ERROR] Symbol info not found for {symbol}")
         return {
             "symbol": symbol,
             "timeframe": timeframe,
@@ -50,6 +42,10 @@ def backtest_combo(args):
         }
 
     point = info.point
+    best_params = {}
+    max_profit = float('-inf')
+    rejected_params = []
+    total_params_tested = 0
 
     for atr_period in range(5, 15):
         for multiplier in range(2, 6):
@@ -153,7 +149,7 @@ def backtest_combo(args):
         "symbol": symbol,
         "timeframe": timeframe,
         "best_params": best_params,
-        "best_profit": float(max_profit),
+        "best_profit": max_profit,
         "rejected_count": len(rejected_params),
         "total_tested": total_params_tested
     }
@@ -163,20 +159,20 @@ if __name__ == "__main__":
         log_error("MT5 initialization failed.")
         exit()
 
-    task_list = [(symbol, tf) for symbol in SYMBOL_LIST for tf in TIMEFRAME_LIST]
+    best_overall = {"best_profit": float('-inf')}
 
-    log_info(f"Starting parallel backtest on {len(task_list)} tasks using {multiprocessing.cpu_count()} cores...")
-
-    with ProcessPoolExecutor(max_workers=multiprocessing.cpu_count()) as executor:
-        results = list(executor.map(backtest_combo, task_list))
-
-    best = max(results, key=lambda r: r["best_profit"])
+    for symbol in SYMBOL_LIST:
+        for timeframe in TIMEFRAME_LIST:
+            log_info(f"Backtesting {symbol} @ {timeframe}...")
+            result = backtest_combo((symbol, timeframe))
+            if result and result["best_profit"] > best_overall["best_profit"]:
+                best_overall = result
 
     if not os.path.exists("results"):
         os.makedirs("results")
 
     with open("results/best_params.json", "w") as f:
-        json.dump(best, f, indent=4)
+        json.dump(best_overall, f, indent=4)
 
-    log_info(f"Best backtest result saved: {best}")
+    log_info(f"[DONE] Best result: {best_overall}")
     shutdown_mt5()
