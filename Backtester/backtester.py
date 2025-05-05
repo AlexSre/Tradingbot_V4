@@ -26,7 +26,30 @@ def backtest_combo(args):
     max_profit = float('-inf')
     rejected_params = []
     total_params_tested = 0
-    point = mt5.symbol_info(symbol).point
+    if not mt5.symbol_select(symbol, True):
+        log_error(f"Failed to select symbol {symbol}")
+        return {
+            "symbol": symbol,
+            "timeframe": timeframe,
+            "best_params": {},
+            "best_profit": -999999,
+            "rejected_count": 0,
+            "total_tested": 0
+        }
+
+    info = mt5.symbol_info(symbol)
+    if info is None:
+        log_error(f"Symbol info not found for {symbol}")
+        return {
+            "symbol": symbol,
+            "timeframe": timeframe,
+            "best_params": {},
+            "best_profit": -999999,
+            "rejected_count": 0,
+            "total_tested": 0
+        }
+
+    point = info.point
 
     for atr_period in range(5, 15):
         for multiplier in range(2, 6):
