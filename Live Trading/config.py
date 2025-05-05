@@ -14,9 +14,19 @@ TRAILING_STOP_DISTANCE_PIPS = 30
 TRADE_FREQUENCY_SECONDS = 30
 
 # Symbol & Timeframe Settings
-USE_MT5_CHART = True
+USE_MANUAL_SYMBOL = False
 MANUAL_SYMBOL = "EURUSD"
 MANUAL_TIMEFRAME = mt5.TIMEFRAME_M5
+MANUAL_PARAMS = {
+    "supertrend_period": 10,
+    "supertrend_multiplier": 3,
+    "adx_period": 14,
+    "adx_threshold": 25,
+    "rsi_period": 14,
+    "rsi_oversold": 30,
+    "rsi_overbought": 70
+}
+
 
 # Prop firm logic
 FUNDED_MODE = True

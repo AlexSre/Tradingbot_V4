@@ -2,8 +2,13 @@ import MetaTrader5 as mt5
 import pandas as pd
 import os
 import json
+import multiprocessing
+from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime
-from config import *
+from config import (
+    START_BALANCE, BACKTEST_START_DATE, BACKTEST_END_DATE,
+    SYMBOL_LIST, TIMEFRAME_LIST, FUNDED_MODE, WEEKEND_DAYS, ALLOWED_SESSIONS
+)
 from utils import log_info, log_error
 from mt5_connector import fetch_historical_data, initialize_mt5, shutdown_mt5
 from strategy import calculate_indicators
@@ -15,12 +20,12 @@ def is_session_allowed(current_time):
             return True
     return False
 
-def backtest_supertrend(symbol, timeframe, start_date, end_date):
+def backtest_combo(args):
+    symbol, timeframe = args
     best_params = {}
     max_profit = float('-inf')
     rejected_params = []
     total_params_tested = 0
-
     point = mt5.symbol_info(symbol).point
 
     for atr_period in range(5, 15):
@@ -42,11 +47,11 @@ def backtest_supertrend(symbol, timeframe, start_date, end_date):
                                     "rsi_overbought": rsi_high
                                 }
 
-                                df = fetch_historical_data(symbol, timeframe, start_date, end_date)
+                                df = fetch_historical_data(symbol, timeframe, BACKTEST_START_DATE, BACKTEST_END_DATE)
                                 if df.empty:
                                     continue
 
-                                df = df[(df['time'] >= pd.to_datetime(start_date)) & (df['time'] <= pd.to_datetime(end_date))]
+                                df = df[(df['time'] >= pd.to_datetime(BACKTEST_START_DATE)) & (df['time'] <= pd.to_datetime(BACKTEST_END_DATE))]
                                 df = calculate_indicators(df, params)
 
                                 balance = START_BALANCE
@@ -63,13 +68,11 @@ def backtest_supertrend(symbol, timeframe, start_date, end_date):
 
                                     if FUNDED_MODE:
                                         if risk_manager.is_max_total_loss_exceeded(balance):
-                                            log_error(f"Max total loss exceeded. Skipping params: {params}")
                                             rejected_params.append(params)
                                             balance = -999999
                                             break
-
                                         if risk_manager.is_daily_loss_exceeded(balance):
-                                            continue  # Skip trading for rest of the day
+                                            continue
 
                                     if row.name.weekday() in WEEKEND_DAYS:
                                         continue
@@ -118,44 +121,39 @@ def backtest_supertrend(symbol, timeframe, start_date, end_date):
                                             balance += (entry_price - stop_loss) * (LOT_SIZE / point)
                                             position = None
 
-                                if balance - START_BALANCE > max_profit:
-                                    max_profit = balance - START_BALANCE
+                                profit = float(balance - START_BALANCE)
+                                if profit > max_profit:
+                                    max_profit = profit
                                     best_params = params
 
-    # --- Save results ---
-    if not os.path.exists("results"):
-        os.makedirs("results")
-
-    with open("results/best_params.json", "w") as f:
-        json.dump(best_params, f, indent=4)
-
-    with open("results/rejected_params.json", "w") as f:
-        json.dump(rejected_params, f, indent=4)
-
-    summary = {
+    return {
+        "symbol": symbol,
+        "timeframe": timeframe,
         "best_params": best_params,
-        "best_profit": max_profit,
-        "total_params_tested": total_params_tested,
-        "total_rejected_params": len(rejected_params),
-        "total_accepted_params": total_params_tested - len(rejected_params)
+        "best_profit": float(max_profit),
+        "rejected_count": len(rejected_params),
+        "total_tested": total_params_tested
     }
-
-    with open("results/final_backtest_summary.json", "w") as f:
-        json.dump(summary, f, indent=4)
-
-    log_info(f"Backtest completed: {summary}")
 
 if __name__ == "__main__":
     if not initialize_mt5():
         log_error("MT5 initialization failed.")
         exit()
 
-    for symbol in SYMBOL_LIST:
-        try:
-            backtest_supertrend(symbol, MANUAL_TIMEFRAME, BACKTEST_START_DATE, BACKTEST_END_DATE)
-        except KeyboardInterrupt:
-            log_info("Backtest interrupted by user.")
-            shutdown_mt5()
-            exit()
+    task_list = [(symbol, tf) for symbol in SYMBOL_LIST for tf in TIMEFRAME_LIST]
 
+    log_info(f"Starting parallel backtest on {len(task_list)} tasks using {multiprocessing.cpu_count()} cores...")
+
+    with ProcessPoolExecutor(max_workers=multiprocessing.cpu_count()) as executor:
+        results = list(executor.map(backtest_combo, task_list))
+
+    best = max(results, key=lambda r: r["best_profit"])
+
+    if not os.path.exists("results"):
+        os.makedirs("results")
+
+    with open("results/best_params.json", "w") as f:
+        json.dump(best, f, indent=4)
+
+    log_info(f"Best backtest result saved: {best}")
     shutdown_mt5()

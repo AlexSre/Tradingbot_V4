@@ -20,7 +20,7 @@ MAX_TOTAL_LOSS_PERCENT = 10.0  # Max loss allowed on total balance (% of start b
 FUNDED_MODE =True # Enable/disable daily/max loss protection
 
 # --- Backtest Settings ---
-MANUAL_TIMEFRAME = mt5.TIMEFRAME_M5
+TIMEFRAME_LIST = [mt5.TIMEFRAME_M1, mt5.TIMEFRAME_M5, mt5.TIMEFRAME_M15]
 SYMBOL_LIST = ["EURUSD"]
 
 BACKTEST_START_DATE = "2025-04-07"

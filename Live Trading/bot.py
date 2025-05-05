@@ -1,60 +1,57 @@
 import time
-import pandas as pd
 import os
+import json
+import pandas as pd
 import MetaTrader5 as mt5
+
+from config import *
 from mt5_connector import (
-    initialize_mt5, shutdown_mt5, get_open_chart, fetch_historical_data,
+    initialize_mt5, shutdown_mt5, fetch_historical_data,
     execute_trade, adjust_trailing_stop
 )
 from strategy import calculate_indicators
-from config import Bars, TRADE_FREQUENCY_SECONDS, USE_MT5_CHART, MANUAL_SYMBOL, MANUAL_TIMEFRAME, FUNDED_MODE, MAX_DAILY_DRAWDOWN_PERCENT
-from utils import log_info, log_error, DailyLossManager
-import json
 from funded_risk import DailyLossManager
+from utils import log_info, log_error
 
+# Load best config from file (symbol, timeframe, strategy params)
+def load_best_config():
+    try:
+        with open("results/best_params.json", "r") as f:
+            data = json.load(f)
+            return data["symbol"], data["timeframe"], data["best_params"]
+    except Exception as e:
+        log_error(f"Failed to load best_params.json: {e}")
+        return None, None, None
 
 # Initialize MT5
 if not initialize_mt5():
     log_error("Failed to initialize MT5. Exiting.")
     exit()
 
-# Detect or set Symbol & Timeframe
-if USE_MT5_CHART:
-    result = get_open_chart()
-    if result and result[0]:
-        symbol, timeframe = result
-        if isinstance(timeframe, str):
-            timeframe = getattr(mt5, f"TIMEFRAME_{timeframe.upper()}", mt5.TIMEFRAME_M5)
-    else:
-        log_error("Failed to get chart details from MT5. Using manual settings.")
-        symbol, timeframe = MANUAL_SYMBOL, MANUAL_TIMEFRAME
+# Select symbol + timeframe + params
+if USE_MANUAL_SYMBOL:
+    symbol = MANUAL_SYMBOL
+    timeframe = MANUAL_TIMEFRAME
+    best_params = MANUAL_PARAMS
+    log_info(f"[MANUAL MODE] Trading {symbol} on timeframe {timeframe}")
 else:
-    symbol, timeframe = MANUAL_SYMBOL, MANUAL_TIMEFRAME
+    symbol, timeframe, best_params = load_best_config()
+    if not all([symbol, timeframe, best_params]):
+        log_error("Missing config from best_params.json. Exiting.")
+        shutdown_mt5()
+        exit()
+    log_info(f"[AUTO MODE] Trading {symbol} on {timeframe} with loaded best params.")
 
-if isinstance(timeframe, str):
-    timeframe = getattr(mt5, f"TIMEFRAME_{timeframe.upper()}", mt5.TIMEFRAME_M5)
-
-log_info(f"Trading on {symbol} ({timeframe})")
-
-# Load best parameters from JSON
-try:
-    with open("../backtester/results/best_params.json") as f:
-        best_params = json.load(f)
-        log_info(f"Loaded best parameters: {best_params}")
-except Exception as e:
-    log_error(f"Failed to load best parameters: {e}")
-    exit()
-
-
-account_info = mt5.account_info()
+# Setup daily loss logic
 daily_loss_manager = DailyLossManager()
 
-
+# Initial risk check
 if FUNDED_MODE and daily_loss_manager.should_stop_bot():
-    log_error("Daily loss limit exceeded. Stopping bot immediately.")
+    log_error("Max daily loss already hit. Stopping bot.")
     shutdown_mt5()
     exit()
 
+# Main loop
 while True:
     if os.path.exists("stop.flag"):
         log_info("Stop flag detected. Exiting.")
@@ -68,18 +65,22 @@ while True:
         continue
 
     if FUNDED_MODE:
-        daily_loss_manager.update()
-
+        daily_loss_manager.update_day()
         if daily_loss_manager.should_stop_bot():
-            log_error("Maximum daily loss exceeded. Stopping bot immediately (FUNDED MODE).")
+            log_error("FUNDED MODE: Max daily loss exceeded. Stopping.")
             shutdown_mt5()
             exit()
 
     df = fetch_historical_data(symbol, timeframe, Bars)
     if df.empty:
-        log_error("No historical data retrieved.")
+        log_error("No historical data.")
         time.sleep(TRADE_FREQUENCY_SECONDS)
         continue
+
+    if best_params is None:
+        log_error("No parameters defined for strategy.")
+        shutdown_mt5()
+        exit()
 
     df = calculate_indicators(df, best_params)
 
