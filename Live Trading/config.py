@@ -6,6 +6,7 @@ MT5_PASSWORD = "WhZcQg!4"
 MT5_SERVER = "MetaQuotes-Demo"
 
 # Trading Settings
+START_BALANCE= 10000
 LOT_SIZE = 0.3
 Bars = 10000
 TRAILING_STOP_TRIGGER_PIPS = 50
@@ -30,4 +31,4 @@ MANUAL_PARAMS = {
 
 # Prop firm logic
 FUNDED_MODE = True
-MAX_DAILY_DRAWDOWN_PERCENT = 4.5  # If needed in future
+DAILY_MAX_LOSS_PERCENT = 4.5  # If needed in future

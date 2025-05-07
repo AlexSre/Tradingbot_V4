@@ -1,4 +1,4 @@
-from config import START_BALANCE, DAILY_MAX_LOSS_PERCENT, MAX_TOTAL_LOSS_PERCENT, FUNDED_MODE
+from config import START_BALANCE, DAILY_MAX_LOSS_PERCENT, FUNDED_MODE
 import MetaTrader5 as mt5
 import datetime
 import pytz

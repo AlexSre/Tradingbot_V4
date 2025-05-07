@@ -2,10 +2,7 @@ import MetaTrader5 as mt5
 import json
 import pandas as pd
 import time
-from config import (
-    LOT_SIZE, TRAILING_STOP_TRIGGER_PIPS, TRAILING_STOP_ENABLED,
-    TRAILING_STOP_DISTANCE_PIPS, MANUAL_SYMBOL, MANUAL_TIMEFRAME
-)
+from config import *
 from utils import log_info, log_error
 
 def initialize_mt5():
@@ -26,11 +23,11 @@ def shutdown_mt5():
     mt5.shutdown()
     log_info("MT5 connection closed")
 
-def fetch_historical_data(symbol, timeframe, bars=10000):
+def fetch_historical_data(symbol, timeframe, Bars):
     if not mt5.symbol_select(symbol, True):
         log_error(f"Symbol {symbol} not available in MT5.")
         return pd.DataFrame()
-    rates = mt5.copy_rates_from_pos(symbol, timeframe, 0, bars)
+    rates = mt5.copy_rates_from_pos(symbol, timeframe, 0, Bars)
     if rates is None or len(rates) == 0:
         log_error(f"Failed to fetch data for {symbol}")
         return pd.DataFrame()
