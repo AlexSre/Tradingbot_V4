@@ -42,6 +42,9 @@ def backtest_combo(args):
         }
 
     point = info.point
+    spread_pips = 1.5  # Simulated spread
+    commission = -7.0  # Simulated round-trip commission
+
     best_params = {}
     max_profit = float('-inf')
     rejected_params = []
@@ -111,33 +114,39 @@ def backtest_combo(args):
                                         rsi = row['rsi']
                                         close_price = row['close']
 
+                                        # ENTRY LOGIC
                                         if adx >= params["adx_threshold"] and params["rsi_oversold"] <= rsi <= params["rsi_overbought"]:
                                             if signal == "buy" and position != "buy":
                                                 if position == "sell":
-                                                    balance += (entry_price - close_price) * (LOT_SIZE / point)
+                                                    pnl = (entry_price - close_price) * (LOT_SIZE / point)
+                                                    balance += pnl + commission
                                                 position = "buy"
-                                                entry_price = close_price
+                                                entry_price = close_price + (spread_pips * point)
                                                 stop_loss = entry_price - (TRAILING_STOP_DISTANCE_PIPS * point)
 
                                             elif signal == "sell" and position != "sell":
                                                 if position == "buy":
-                                                    balance += (close_price - entry_price) * (LOT_SIZE / point)
+                                                    pnl = (close_price - entry_price) * (LOT_SIZE / point)
+                                                    balance += pnl + commission
                                                 position = "sell"
-                                                entry_price = close_price
+                                                entry_price = close_price - (spread_pips * point)
                                                 stop_loss = entry_price + (TRAILING_STOP_DISTANCE_PIPS * point)
 
+                                    # EXIT LOGIC
                                     if position == "buy":
                                         if close_price - stop_loss >= TRAILING_STOP_TRIGGER_PIPS * point:
                                             stop_loss = max(stop_loss, close_price - (TRAILING_STOP_DISTANCE_PIPS * point))
                                         if close_price <= stop_loss:
-                                            balance += (stop_loss - entry_price) * (LOT_SIZE / point)
+                                            pnl = (stop_loss - entry_price) * (LOT_SIZE / point)
+                                            balance += pnl + commission
                                             position = None
 
                                     elif position == "sell":
                                         if stop_loss - close_price >= TRAILING_STOP_TRIGGER_PIPS * point:
                                             stop_loss = min(stop_loss, close_price + (TRAILING_STOP_DISTANCE_PIPS * point))
                                         if close_price >= stop_loss:
-                                            balance += (entry_price - stop_loss) * (LOT_SIZE / point)
+                                            pnl = (entry_price - stop_loss) * (LOT_SIZE / point)
+                                            balance += pnl + commission
                                             position = None
 
                                 profit = float(balance - START_BALANCE)
@@ -153,6 +162,7 @@ def backtest_combo(args):
         "rejected_count": len(rejected_params),
         "total_tested": total_params_tested
     }
+
 
 if __name__ == "__main__":
     if not initialize_mt5():

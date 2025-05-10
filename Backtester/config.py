@@ -10,6 +10,9 @@ MT5_SERVER = "MetaQuotes-Demo"
 LOT_SIZE = 0.9
 TRAILING_STOP_TRIGGER_PIPS = 50
 TRAILING_STOP_DISTANCE_PIPS = 30
+spread_pips = 1.5      # Simulated spread
+commission_per_trade = -7.0  # Total round-trip commission
+
 
 # --- Risk Management ---
 START_BALANCE = 10000  # Starting balance in USD

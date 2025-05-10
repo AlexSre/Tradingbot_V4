@@ -6,6 +6,18 @@ import pandas as pd
 
 # --- Daily Loss Manager (for live trading) ---
 class DailyLossManager:
+
+    def get_current_daily_loss(self):
+        berlin = pytz.timezone("Europe/Berlin")
+        now_berlin = datetime.datetime.now(berlin)
+        midnight_berlin = berlin.localize(datetime.datetime.combine(now_berlin.date(), datetime.time.min))
+        utc_from = midnight_berlin.astimezone(pytz.UTC)
+
+        deals = mt5.history_deals_get(utc_from, datetime.datetime.utcnow())
+        closed_pnl = sum(deal.profit + deal.commission + deal.swap for deal in deals) if deals else 0.0
+        floating_pnl = 0.0  # no open trades
+        return closed_pnl + floating_pnl
+
     def __init__(self):
         self.initial_balance = START_BALANCE
         self.max_daily_loss = self.initial_balance * (DAILY_MAX_LOSS_PERCENT / 100)
@@ -29,7 +41,7 @@ class DailyLossManager:
         now = self.get_berlin_now()
 
         deals = mt5.history_deals_get(utc_from, now)
-        closed_pnl = sum(deal.profit for deal in deals) if deals else 0.0
+        closed_pnl = sum(deal.profit + deal.commission + deal.swap for deal in deals else 0.0
 
         positions = mt5.positions_get()
         floating_pnl = sum(pos.profit for pos in positions) if positions else 0.0
