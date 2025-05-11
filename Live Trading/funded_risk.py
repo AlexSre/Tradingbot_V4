@@ -1,6 +1,6 @@
 from config import START_BALANCE, DAILY_MAX_LOSS_PERCENT, FUNDED_MODE
 import MetaTrader5 as mt5
-import datetime
+from datetime import datetime , time
 import pytz
 import pandas as pd
 
@@ -8,14 +8,28 @@ import pandas as pd
 class DailyLossManager:
 
     def get_current_daily_loss(self):
+        # Set up Europe/Berlin timezone
         berlin = pytz.timezone("Europe/Berlin")
-        now_berlin = datetime.datetime.now(berlin)
-        midnight_berlin = berlin.localize(datetime.datetime.combine(now_berlin.date(), datetime.time.min))
+        now_berlin = datetime.now(berlin)
+
+        # Define today's midnight in CEST
+        midnight_berlin = berlin.localize(datetime.combine(now_berlin.date(), time.min))
         utc_from = midnight_berlin.astimezone(pytz.UTC)
 
-        deals = mt5.history_deals_get(utc_from, datetime.datetime.utcnow())
-        closed_pnl = sum(deal.profit + deal.commission + deal.swap for deal in deals) if deals else 0.0
-        floating_pnl = 0.0  # no open trades
+        # Get today's deals
+        deals = mt5.history_deals_get(utc_from, datetime.utcnow())
+
+        # Filter only actual trade closes (types 1 and 2: buy/sell)
+        closed_pnl = 0.0
+        if deals:
+            for deal in deals:
+                if deal.type in [1, 2]:  # BUY/SELL only
+                    closed_pnl += deal.profit + deal.commission + deal.swap
+
+        # Get open position floating P/L (if any)
+        positions = mt5.positions_get()
+        floating_pnl = sum(pos.profit for pos in positions) if positions else 0.0
+
         return closed_pnl + floating_pnl
 
     def __init__(self):
