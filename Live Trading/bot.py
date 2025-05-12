@@ -16,7 +16,7 @@ from utils import log_info, log_error
 # Load best config from file (symbol, timeframe, strategy params)
 def load_best_config():
     try:
-        with open("results/best_params.json", "r") as f:
+        with open("../Backtester/results/best_params.json", "r") as f:
             data = json.load(f)
             return data["symbol"], data["timeframe"], data["best_params"]
     except Exception as e:

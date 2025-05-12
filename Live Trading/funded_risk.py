@@ -1,4 +1,4 @@
-from datetime import datetime, time, date
+from datetime import datetime, time
 import pytz
 import MetaTrader5 as mt5
 from config import START_BALANCE, DAILY_MAX_LOSS_PERCENT, FUNDED_MODE
@@ -8,22 +8,22 @@ class DailyLossManager:
     def __init__(self):
         self.initial_balance = START_BALANCE
         self.max_daily_loss = self.initial_balance * (DAILY_MAX_LOSS_PERCENT / 100)
+        self.timezone = pytz.timezone("Europe/Berlin")
         self.today = self.get_berlin_now().date()
 
     def get_berlin_now(self):
-        berlin = pytz.timezone("Europe/Berlin")
-        return datetime.now(berlin)
+        return datetime.now(self.timezone)
 
     def update_day(self):
-        now = self.get_berlin_now()
-        if now.date() != self.today:
-            self.today = now.date()
+        today = self.get_berlin_now().date()
+        if today != self.today:
+            self.today = today
             log_info("New day detected — resetting daily loss tracking.")
 
     def get_current_daily_loss(self):
-        # Convert CE(S)T midnight to UTC for MT5
-        berlin = pytz.timezone("Europe/Berlin")
-        midnight_berlin = berlin.localize(datetime.combine(self.today, time.min))
+        # Always calculate fresh CE(S)T midnight from live Berlin time
+        berlin_now = self.get_berlin_now()
+        midnight_berlin = self.timezone.localize(datetime.combine(berlin_now.date(), time.min))
         utc_from = midnight_berlin.astimezone(pytz.UTC)
 
         # Get closed trades today
@@ -35,7 +35,7 @@ class DailyLossManager:
                 if deal.type in [1, 2]:  # BUY or SELL only
                     closed_pnl += deal.profit + deal.commission + deal.swap
 
-        # Floating P/L from open positions
+        # Get open position floating P/L (if any)
         positions = mt5.positions_get()
         floating_pnl = sum(pos.profit for pos in positions) if positions else 0.0
 
@@ -47,5 +47,4 @@ class DailyLossManager:
         if not FUNDED_MODE:
             return False
 
-        current_loss = self.get_current_daily_loss()
-        return current_loss <= -self.max_daily_loss
+        return self.get_current_daily_loss() <= -self.max_daily_loss
