@@ -55,7 +55,10 @@ class DailyLossManager:
         now = self.get_berlin_now()
 
         deals = mt5.history_deals_get(utc_from, now)
-        closed_pnl = sum(deal.profit + deal.commission + deal.swap for deal in deals else 0.0
+        if deals:
+            closed_pnl = sum(deal.profit + deal.commission + deal.swap for deal in deals if deal.type in [1, 2])
+        else:
+            closed_pnl = 0.0
 
         positions = mt5.positions_get()
         floating_pnl = sum(pos.profit for pos in positions) if positions else 0.0
