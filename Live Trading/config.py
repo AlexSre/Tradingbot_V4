@@ -1,8 +1,8 @@
 import MetaTrader5 as mt5
 
-# MetaTrader 5 account credentials
-MT5_ACCOUNT = 5035498531
-MT5_PASSWORD = "WhZcQg!4"
+# --- MT5 Credentials ---
+MT5_ACCOUNT = 5036056322
+MT5_PASSWORD = "!6EuZqPs"
 MT5_SERVER = "MetaQuotes-Demo"
 
 # Trading Settings
