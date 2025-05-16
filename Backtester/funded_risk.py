@@ -23,42 +23,32 @@ class DailyLossManager:
     def get_current_daily_loss(self):
         berlin_now = self.get_berlin_now()
         midnight_berlin = datetime.combine(berlin_now.date(), time.min, tzinfo=self.timezone)
-        utc_from = midnight_berlin.astimezone(ZoneInfo("UTC"))
-        utc_now = datetime.utcnow()
+        midnight_timestamp = int(midnight_berlin.timestamp())
 
         log_info(f"[DEBUG] Berlin time now: {berlin_now.strftime('%Y-%m-%d %H:%M:%S %Z')}")
-        log_info(f"[DEBUG] MT5 deal history starts from (UTC): {utc_from.strftime('%Y-%m-%d %H:%M:%S %Z')}")
+        log_info(f"[DEBUG] Filtering deals after UNIX timestamp: {midnight_timestamp}")
 
-        # Optional: force history select
-        mt5.history_select(utc_from, utc_now)
-        total_deals = mt5.history_deals_total()
-        log_info(f"[DEBUG] Total MT5 deals in range: {total_deals}")
-
-        deals = mt5.history_deals_get(utc_from, utc_now)
+        deals = mt5.history_deals_get(position=0)
         closed_pnl = 0.0
         valid_types = [mt5.ORDER_TYPE_BUY, mt5.ORDER_TYPE_SELL]
         seen_tickets = set()
 
         if deals:
-            log_info(f"[DEBUG] Found {len(deals)} raw deals from MT5:")
-            log_info(f"[DEBUG] Deal Types Found: {[deal.type for deal in deals]}")
-            for deal in deals:
+            filtered = [d for d in deals if d.time >= midnight_timestamp]
+            log_info(f"[DEBUG] Found {len(filtered)} deals since Berlin midnight.")
+            for deal in filtered:
                 if deal.ticket in seen_tickets:
                     continue
                 seen_tickets.add(deal.ticket)
-
-                t = datetime.fromtimestamp(deal.time)
                 pnl = deal.profit + deal.commission + deal.swap
-
                 if deal.type in valid_types:
                     closed_pnl += pnl
-
                 log_info(
-                    f"  → Deal: {deal.ticket} | Time: {t} | Symbol: {deal.symbol} | Type: {deal.type} | "
+                    f"  → Deal: {deal.ticket} | Time: {datetime.fromtimestamp(deal.time)} | Symbol: {deal.symbol} | Type: {deal.type} | "
                     f"Profit: {deal.profit:.2f} | Comm: {deal.commission:.2f} | Swap: {deal.swap:.2f} | Net: {pnl:.2f}"
                 )
         else:
-            log_info("[DEBUG] No deals returned by MT5.")
+            log_info("[DEBUG] No deals returned by MT5 (history_deals_get).")
 
         positions = mt5.positions_get()
         floating_pnl = sum(pos.profit for pos in positions) if positions else 0.0
