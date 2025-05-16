@@ -4,7 +4,6 @@ import MetaTrader5 as mt5
 from config import START_BALANCE, DAILY_MAX_LOSS_PERCENT, FUNDED_MODE
 from utils import log_info, log_error
 
-
 class DailyLossManager:
     def __init__(self):
         self.initial_balance = START_BALANCE
@@ -25,30 +24,36 @@ class DailyLossManager:
         berlin_now = self.get_berlin_now()
         midnight_berlin = datetime.combine(berlin_now.date(), time.min, tzinfo=self.timezone)
         utc_from = midnight_berlin.astimezone(ZoneInfo("UTC"))
+        utc_now = datetime.utcnow()
+
+        mt5.history_select(utc_from, utc_now)  # Ensure history is selected in MT5 terminal
 
         log_info(f"[DEBUG] Berlin time now: {berlin_now.strftime('%Y-%m-%d %H:%M:%S %Z')}")
         log_info(f"[DEBUG] MT5 deal history starts from (UTC): {utc_from.strftime('%Y-%m-%d %H:%M:%S %Z')}")
 
-        deals = mt5.history_deals_get(utc_from, datetime.utcnow())
+        deals = mt5.history_deals_get(utc_from, utc_now)
         closed_pnl = 0.0
         valid_types = [mt5.ORDER_TYPE_BUY, mt5.ORDER_TYPE_SELL]
         seen_tickets = set()
 
         if deals:
             log_info(f"[DEBUG] Found {len(deals)} raw deals from MT5:")
+            log_info(f"[DEBUG] Deal Types Found: {[deal.type for deal in deals]}")
             for deal in deals:
                 if deal.ticket in seen_tickets:
                     continue
                 seen_tickets.add(deal.ticket)
 
+                t = datetime.fromtimestamp(deal.time)
+                pnl = deal.profit + deal.commission + deal.swap
+
                 if deal.type in valid_types:
-                    t = datetime.fromtimestamp(deal.time)
-                    pnl = deal.profit + deal.commission + deal.swap
                     closed_pnl += pnl
-                    log_info(
-                        f"  → Deal: {deal.ticket} | Time: {t} | Symbol: {deal.symbol} | Type: {deal.type} | "
-                        f"Profit: {deal.profit:.2f} | Comm: {deal.commission:.2f} | Swap: {deal.swap:.2f} | Net: {pnl:.2f}"
-                    )
+
+                log_info(
+                    f"  → Deal: {deal.ticket} | Time: {t} | Symbol: {deal.symbol} | Type: {deal.type} | "
+                    f"Profit: {deal.profit:.2f} | Comm: {deal.commission:.2f} | Swap: {deal.swap:.2f} | Net: {pnl:.2f}"
+                )
         else:
             log_info("[DEBUG] No deals returned by MT5.")
 
