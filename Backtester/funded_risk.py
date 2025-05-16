@@ -26,10 +26,13 @@ class DailyLossManager:
         utc_from = midnight_berlin.astimezone(ZoneInfo("UTC"))
         utc_now = datetime.utcnow()
 
-        mt5.history_select(utc_from, utc_now)  # Ensure history is selected in MT5 terminal
-
         log_info(f"[DEBUG] Berlin time now: {berlin_now.strftime('%Y-%m-%d %H:%M:%S %Z')}")
         log_info(f"[DEBUG] MT5 deal history starts from (UTC): {utc_from.strftime('%Y-%m-%d %H:%M:%S %Z')}")
+
+        # Optional: force history select
+        mt5.history_select(utc_from, utc_now)
+        total_deals = mt5.history_deals_total()
+        log_info(f"[DEBUG] Total MT5 deals in range: {total_deals}")
 
         deals = mt5.history_deals_get(utc_from, utc_now)
         closed_pnl = 0.0
