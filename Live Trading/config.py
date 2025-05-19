@@ -1,9 +1,9 @@
 import MetaTrader5 as mt5
 
 # --- MT5 Credentials ---
-MT5_ACCOUNT = 5036056322
-MT5_PASSWORD = "!6EuZqPs"
-MT5_SERVER = "MetaQuotes-Demo"
+MT5_ACCOUNT = 52333432
+MT5_PASSWORD = "0hi!TwIOaL&BYd"
+MT5_SERVER = "ICMarketsEU-Demo"
 
 # Trading Settings
 START_BALANCE= 10000

@@ -2,9 +2,9 @@ import MetaTrader5 as mt5
 from datetime import time
 
 # --- MT5 Credentials ---
-MT5_ACCOUNT = 92634626
-MT5_PASSWORD = "T@QiPtY3"
-MT5_SERVER = "MetaQuotes-Demo"
+MT5_ACCOUNT = 52333432
+MT5_PASSWORD = "0hi!TwIOaL&BYd"
+MT5_SERVER = "ICMarketsEU-Demo"
 
 # --- Trading Settings ---
 LOT_SIZE = 0.3

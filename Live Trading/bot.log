@@ -13003,3 +13003,7 @@ time                                                     ...
 [5 rows x 14 columns]
 2025-05-13 22:41:34 [INFO] - SuperTrend: buy, ADX: 52.73323483296318, RSI: 73.99141531909562, Price: 1.11873
 2025-05-13 22:41:34 [INFO] - No open positions.
+2025-05-19 10:34:20 [INFO] - Logged in as 52333432 (Balance: 9991.42)
+2025-05-19 10:34:20 [ERROR] - Failed to load best_params.json: 'symbol'
+2025-05-19 10:34:20 [ERROR] - Missing config from best_params.json. Exiting.
+2025-05-19 10:34:20 [INFO] - MT5 connection closed
