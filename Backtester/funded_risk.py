@@ -1,66 +1,71 @@
-from datetime import datetime, time
-from zoneinfo import ZoneInfo
-import MetaTrader5 as mt5
-from config import START_BALANCE, DAILY_MAX_LOSS_PERCENT, FUNDED_MODE
-from utils import log_info, log_error
+# funded_risk.py
 
+from config import START_BALANCE, DAILY_MAX_LOSS_PERCENT, MAX_TOTAL_LOSS_PERCENT, FUNDED_MODE
+import MetaTrader5 as mt5
+import datetime
+import pytz
+import pandas as pd
+
+# --- Daily Loss Manager (for live trading) ---
 class DailyLossManager:
     def __init__(self):
         self.initial_balance = START_BALANCE
         self.max_daily_loss = self.initial_balance * (DAILY_MAX_LOSS_PERCENT / 100)
-        self.timezone = ZoneInfo("Europe/Berlin")
         self.today = self.get_berlin_now().date()
 
     def get_berlin_now(self):
-        return datetime.now(self.timezone)
+        berlin = pytz.timezone('Europe/Berlin')
+        return datetime.datetime.now(berlin)
 
     def update_day(self):
-        today = self.get_berlin_now().date()
-        if today != self.today:
-            self.today = today
-            log_info("New day detected — resetting daily loss tracking.")
+        now = self.get_berlin_now()
+        if now.date() != self.today:
+            self.today = now.date()
 
     def get_current_daily_loss(self):
-        berlin_now = self.get_berlin_now()
-        midnight_berlin = datetime.combine(berlin_now.date(), time.min, tzinfo=self.timezone)
-        midnight_timestamp = int(midnight_berlin.timestamp())
+        self.update_day()
 
-        log_info(f"[DEBUG] Berlin time now: {berlin_now.strftime('%Y-%m-%d %H:%M:%S %Z')}")
-        log_info(f"[DEBUG] Filtering deals after UNIX timestamp: {midnight_timestamp}")
+        utc_from = datetime.datetime.combine(self.today, datetime.time(0, 0))
+        utc_from = utc_from.replace(tzinfo=pytz.UTC)
 
-        deals = mt5.history_deals_get(position=0)
-        closed_pnl = 0.0
-        valid_types = [mt5.ORDER_TYPE_BUY, mt5.ORDER_TYPE_SELL]
-        seen_tickets = set()
+        now = self.get_berlin_now()
 
-        if deals:
-            filtered = [d for d in deals if d.time >= midnight_timestamp]
-            log_info(f"[DEBUG] Found {len(filtered)} deals since Berlin midnight.")
-            for deal in filtered:
-                if deal.ticket in seen_tickets:
-                    continue
-                seen_tickets.add(deal.ticket)
-                pnl = deal.profit + deal.commission + deal.swap
-                if deal.type in valid_types:
-                    closed_pnl += pnl
-                log_info(
-                    f"  → Deal: {deal.ticket} | Time: {datetime.fromtimestamp(deal.time)} | Symbol: {deal.symbol} | Type: {deal.type} | "
-                    f"Profit: {deal.profit:.2f} | Comm: {deal.commission:.2f} | Swap: {deal.swap:.2f} | Net: {pnl:.2f}"
-                )
-        else:
-            log_info("[DEBUG] No deals returned by MT5 (history_deals_get).")
+        deals = mt5.history_deals_get(utc_from, now)
+        closed_pnl = sum(deal.profit for deal in deals) if deals else 0.0
 
         positions = mt5.positions_get()
         floating_pnl = sum(pos.profit for pos in positions) if positions else 0.0
 
-        total_loss = closed_pnl + floating_pnl
-        log_info(
-            f"[DAILY LOSS CHECK] Closed P/L = {closed_pnl:.2f} | Floating P/L = {floating_pnl:.2f} "
-            f"| Total = {total_loss:.2f} USD (Limit: -{self.max_daily_loss:.2f} USD)"
-        )
-        return total_loss
+        return closed_pnl + floating_pnl
 
     def should_stop_bot(self):
         if not FUNDED_MODE:
             return False
-        return self.get_current_daily_loss() <= -self.max_daily_loss
+
+        total_loss = self.get_current_daily_loss()
+        print(f"[RISK CHECK] Today's closed + floating P/L = {total_loss:.2f} USD (Limit: -{self.max_daily_loss:.2f} USD)")
+        return total_loss <= -self.max_daily_loss
+
+# --- Backtest Risk Manager (for simulation) ---
+class BacktestRiskManager:
+    def __init__(self):
+        self.start_balance = START_BALANCE
+        self.daily_loss_limit = self.start_balance * (DAILY_MAX_LOSS_PERCENT / 100)
+        self.max_total_loss = self.start_balance * (MAX_TOTAL_LOSS_PERCENT / 100)
+        self.current_day = None
+        self.day_start_balance = None
+
+    def update_day(self, timestamp, balance):
+        if self.current_day != timestamp.date():
+            self.current_day = timestamp.date()
+            self.day_start_balance = balance
+
+    def is_daily_loss_exceeded(self, balance):
+        if self.day_start_balance is None:
+            self.day_start_balance = balance
+        loss_today = self.day_start_balance - balance
+        return loss_today >= self.daily_loss_limit
+
+    def is_max_total_loss_exceeded(self, balance):
+        total_loss = self.start_balance - balance
+        return total_loss >= self.max_total_loss

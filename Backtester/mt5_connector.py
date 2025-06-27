@@ -1,3 +1,5 @@
+# mt5_connector.py
+
 import MetaTrader5 as mt5
 import pandas as pd
 from utils import log_info, log_error
