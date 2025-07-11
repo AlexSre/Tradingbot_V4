@@ -1,9 +1,17 @@
 {
-    "supertrend_period": 11,
-    "supertrend_multiplier": 3,
-    "adx_period": 10,
-    "adx_threshold": 20,
-    "rsi_period": 10,
-    "rsi_oversold": 25,
-    "rsi_overbought": 70
+    "best_profit": 2004.2999999999884,
+    "symbol": "EURUSD",
+    "timeframe": 15,
+    "params": {
+        "supertrend_period": 5,
+        "supertrend_multiplier": 3,
+        "adx_period": 10,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70,
+        "stop_loss_pts": 1000,
+        "trailing_trigger_pts": 777,
+        "trailing_dist_pts": 222
+    }
 }

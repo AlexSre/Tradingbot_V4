@@ -1,0 +1,230 @@
+[
+  {
+    "symbol": "GBPUSD",
+    "timeframe": 15,
+    "tested": 605,
+    "rejected": 0,
+    "best_profit": 2059.200000000017,
+    "best_params": {
+      "supertrend_period": 6,
+      "supertrend_multiplier": 5,
+      "adx_period": 10,
+      "adx_threshold": 25,
+      "rsi_period": 10,
+      "rsi_oversold": 25,
+      "rsi_overbought": 70,
+      "stop_loss_pts": 45,
+      "trailing_trigger_pts": 88,
+      "trailing_dist_pts": 33
+    }
+  },
+  {
+    "symbol": "GBPUSD",
+    "timeframe": 5,
+    "tested": 605,
+    "rejected": 0,
+    "best_profit": 2749.4999999998854,
+    "best_params": {
+      "supertrend_period": 6,
+      "supertrend_multiplier": 5,
+      "adx_period": 10,
+      "adx_threshold": 20,
+      "rsi_period": 10,
+      "rsi_oversold": 25,
+      "rsi_overbought": 65,
+      "stop_loss_pts": 56,
+      "trailing_trigger_pts": 110,
+      "trailing_dist_pts": 33
+    }
+  },
+  {
+    "symbol": "GBPUSD",
+    "timeframe": 1,
+    "tested": 605,
+    "rejected": 0,
+    "best_profit": 1129.5000000001,
+    "best_params": {
+      "supertrend_period": 8,
+      "supertrend_multiplier": 4,
+      "adx_period": 10,
+      "adx_threshold": 20,
+      "rsi_period": 10,
+      "rsi_oversold": 30,
+      "rsi_overbought": 60,
+      "stop_loss_pts": 1,
+      "trailing_trigger_pts": 55,
+      "trailing_dist_pts": 11
+    }
+  },
+  {
+    "symbol": "EURUSD",
+    "timeframe": 15,
+    "tested": 605,
+    "rejected": 0,
+    "best_profit": 1457.100000000055,
+    "best_params": {
+      "supertrend_period": 12,
+      "supertrend_multiplier": 4,
+      "adx_period": 10,
+      "adx_threshold": 25,
+      "rsi_period": 15,
+      "rsi_oversold": 35,
+      "rsi_overbought": 65,
+      "stop_loss_pts": 45,
+      "trailing_trigger_pts": 11,
+      "trailing_dist_pts": 11
+    }
+  },
+  {
+    "symbol": "EURUSD",
+    "timeframe": 5,
+    "tested": 605,
+    "rejected": 0,
+    "best_profit": 1934.0999999999221,
+    "best_params": {
+      "supertrend_period": 14,
+      "supertrend_multiplier": 2,
+      "adx_period": 10,
+      "adx_threshold": 20,
+      "rsi_period": 15,
+      "rsi_oversold": 35,
+      "rsi_overbought": 60,
+      "stop_loss_pts": 111,
+      "trailing_trigger_pts": 88,
+      "trailing_dist_pts": 11
+    }
+  },
+  {
+    "symbol": "EURUSD",
+    "timeframe": 1,
+    "tested": 605,
+    "rejected": 0,
+    "best_profit": 1868.3999999999614,
+    "best_params": {
+      "supertrend_period": 12,
+      "supertrend_multiplier": 5,
+      "adx_period": 10,
+      "adx_threshold": 25,
+      "rsi_period": 10,
+      "rsi_oversold": 25,
+      "rsi_overbought": 65,
+      "stop_loss_pts": 56,
+      "trailing_trigger_pts": 66,
+      "trailing_dist_pts": 11
+    }
+  },
+  {
+    "symbol": "US30",
+    "timeframe": 15,
+    "tested": 605,
+    "rejected": 0,
+    "best_profit": 1432.259999999993,
+    "best_params": {
+      "supertrend_period": 14,
+      "supertrend_multiplier": 4,
+      "adx_period": 10,
+      "adx_threshold": 20,
+      "rsi_period": 10,
+      "rsi_oversold": 25,
+      "rsi_overbought": 65,
+      "stop_loss_pts": 7778,
+      "trailing_trigger_pts": 11110,
+      "trailing_dist_pts": 4444
+    }
+  },
+  {
+    "symbol": "US30",
+    "timeframe": 5,
+    "tested": 605,
+    "rejected": 0,
+    "best_profit": 744.7499999999854,
+    "best_params": {
+      "supertrend_period": 13,
+      "supertrend_multiplier": 5,
+      "adx_period": 10,
+      "adx_threshold": 20,
+      "rsi_period": 15,
+      "rsi_oversold": 35,
+      "rsi_overbought": 65,
+      "stop_loss_pts": 11111,
+      "trailing_trigger_pts": 11110,
+      "trailing_dist_pts": 11110
+    }
+  },
+  {
+    "symbol": "US30",
+    "timeframe": 1,
+    "tested": 605,
+    "rejected": 11,
+    "best_profit": -95.75999999999112,
+    "best_params": {
+      "supertrend_period": 7,
+      "supertrend_multiplier": 5,
+      "adx_period": 10,
+      "adx_threshold": 25,
+      "rsi_period": 15,
+      "rsi_oversold": 35,
+      "rsi_overbought": 60,
+      "stop_loss_pts": 5556,
+      "trailing_trigger_pts": 2222,
+      "trailing_dist_pts": 2222
+    }
+  },
+  {
+    "symbol": "US500",
+    "timeframe": 15,
+    "tested": 605,
+    "rejected": 0,
+    "best_profit": 146.78999999999905,
+    "best_params": {
+      "supertrend_period": 6,
+      "supertrend_multiplier": 5,
+      "adx_period": 10,
+      "adx_threshold": 20,
+      "rsi_period": 15,
+      "rsi_oversold": 30,
+      "rsi_overbought": 65,
+      "stop_loss_pts": 1112,
+      "trailing_trigger_pts": 6666,
+      "trailing_dist_pts": 1111
+    }
+  },
+  {
+    "symbol": "US500",
+    "timeframe": 5,
+    "tested": 605,
+    "rejected": 0,
+    "best_profit": 100.80000000000109,
+    "best_params": {
+      "supertrend_period": 11,
+      "supertrend_multiplier": 2,
+      "adx_period": 10,
+      "adx_threshold": 25,
+      "rsi_period": 15,
+      "rsi_oversold": 30,
+      "rsi_overbought": 70,
+      "stop_loss_pts": 2223,
+      "trailing_trigger_pts": 1111,
+      "trailing_dist_pts": 1111
+    }
+  },
+  {
+    "symbol": "US500",
+    "timeframe": 1,
+    "tested": 605,
+    "rejected": 0,
+    "best_profit": 56.249999999972715,
+    "best_params": {
+      "supertrend_period": 13,
+      "supertrend_multiplier": 4,
+      "adx_period": 10,
+      "adx_threshold": 20,
+      "rsi_period": 10,
+      "rsi_oversold": 35,
+      "rsi_overbought": 60,
+      "stop_loss_pts": 1,
+      "trailing_trigger_pts": 1111,
+      "trailing_dist_pts": 1111
+    }
+  }
+]
