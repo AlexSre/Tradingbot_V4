@@ -7,31 +7,33 @@ import MetaTrader5 as mt5
 USE_ECONOMIC_CALENDAR = True
 USE_NEWS_FILTER = True
 
+
 # ===== MT5 credentials =====
-MT5_ACCOUNT  = int(os.getenv("MT5_ACCOUNT", "7120278"))
-MT5_PASSWORD = os.getenv("MT5_PASSWORD", "Asditon99@!")
-MT5_SERVER   = os.getenv("MT5_SERVER",   "FirstPrudentialMarkets-Demo")
+MT5_ACCOUNT  = int(os.getenv("MT5_ACCOUNT", "52333432"))
+MT5_PASSWORD = os.getenv("MT5_PASSWORD", "0hi!TwIOaL&BYd")
+MT5_SERVER   = os.getenv("MT5_SERVER",   "ICMarketsEU-Demo")
 MT5_TERMINAL_PATH = os.getenv("MT5_TERMINAL_PATH", r"C:\Program Files\MetaTrader 5\terminal64.exe")
 
 # NEW: full fixed setup (symbol + timeframe + params)
-USE_FIXED_SETUP = False
-USE_FIXED_PARAMS = False
+FIXED_PARAMS_MODE = False
 
 # Provide your fixed setup here (or via FIXED_SETUP_JSON env)
 _DEFAULT_FIXED_SETUP = {
-    "symbol": "EURUSD",
-    "timeframe": 5,
+    "best_profit": 462.9800000000105,
+    "symbol": "DE40",
+    "timeframe": 1,
     "params": {
         "supertrend_period": 5,
-        "supertrend_multiplier": 3,
-        "adx_period": 10,
-        "adx_threshold": 20,
+        "supertrend_multiplier": 4,
+        "adx_period": 15,
+        "adx_threshold": 25,
         "rsi_period": 15,
         "rsi_oversold": 25,
-        "rsi_overbought": 60,
-        "stop_loss_pts": 45,
-        "trailing_trigger_pts": 99,
-        "trailing_dist_pts": 88
+        "rsi_overbought": 70,
+        "k_sl": 0.8,
+        "k_trg": 1.0,
+        "k_dist": 0.4,
+        "atr_period": 5
     }
 }
 try:
@@ -48,20 +50,40 @@ except Exception:
 
 # ===== Universe / Dates =====
 TIMEFRAME_LIST = [mt5.TIMEFRAME_M5, mt5.TIMEFRAME_M15,mt5.TIMEFRAME_M1]
-SYMBOL_LIST    = ["EURUSD","GBPUSD","US30","UK100","GER40"]
+SYMBOL_LIST    = ["EURUSD","GBPUSD","US30","UK100","DE40"]
 
-BACKTEST_START_DATE = os.getenv("BACKTEST_START_DATE", "2025-09-01")
-BACKTEST_END_DATE   = os.getenv("BACKTEST_END_DATE",   "2025-09-26")
+BACKTEST_START_DATE = os.getenv("BACKTEST_START_DATE", "2025-10-27")
+BACKTEST_END_DATE   = os.getenv("BACKTEST_END_DATE",   "2025-10-28")
 
 # ===== Trading session & weekends =====
 ALLOWED_SESSIONS = [(time(8, 0), time(18, 0))]  # local
 WEEKEND_DAYS = [5, 6]  # Sat, Sun
 
 # ===== Costs / sizing =====
+ENABLE_RISK_SIZING=True
+RISK_PER_TRADE=float(os.getenv("RISK_PER_TRADE", "0.2"))
+RISK_EXPONENT=float(os.getenv("RISK_EXPONENT", "3.0"))
+BASE_BALANCE=float(os.getenv("BASE_BALANCE", "10000"))
 SPREAD_PIPS        = float(os.getenv("SPREAD_PIPS", "0.0"))
-COMMISSION_PER_LOT = float(os.getenv("COMMISSION_PER_LOT", "0.0"))
 SLIPPAGE_PIPS      = float(os.getenv("SLIPPAGE_PIPS", "0.0"))
+COMMISSION_PER_LOT = float(os.getenv("COMMISSION_PER_LOT", "0.0"))
 LOT_SIZE           = float(os.getenv("LOT_SIZE", "0.9"))
+
+# ------------- general knobs -------------
+FORCE_CLOSE_AT_END = False  # leave positions until end-of-range unless you want forced flat
+
+# Stage-1 ATR multipliers (indicator ranking; same for all candidates)
+S1_K_SL   = 1.5
+S1_K_TRG  = 1.2
+S1_K_DIST = 0.6
+
+# Stage-2 search grid (over ATR multipliers)
+S2_K_SL_LIST   = [0.8, 1.0, 1.2, 1.5, 2.0, 2.5, 3.0]
+S2_K_TRG_LIST  = [1.0, 1.25, 1.5, 1.75, 2.0]
+S2_K_DIST_LIST = [0.4, 0.6, 0.8, 1.0, 1.2]
+
+# run Stage-2 for top-K from Stage-1
+TOP_K_STAGE2 = 3
 
 # ===== Param space (your original) =====
 PARAM_GRID = {
@@ -84,8 +106,6 @@ def _env_bool(name: str, default: bool) -> bool:
 START_BALANCE = float(os.getenv("START_BALANCE", "100000"))
 DAILY_MAX_LOSS_PERCENT = float(os.getenv("DAILY_MAX_LOSS_PERCENT", "4.5"))
 MAX_TOTAL_LOSS_PERCENT = float(os.getenv("MAX_TOTAL_LOSS_PERCENT", "10.0"))
-STAGE2_STEP_RISK_PCT = float(os.getenv("STAGE2_STEP_RISK_PCT", "0.10"))
-STAGE2_MAX_RISK_PCT  = float(os.getenv("STAGE2_MAX_RISK_PCT",  "1.00"))
 FUNDED_MODE = _env_bool("FUNDED_MODE", True)
 
 # ===== Economic calendar provider (RapidAPI: Investing.com Ultimate API) =====
@@ -107,7 +127,7 @@ RAPIDAPI_COUNTRIES = json.loads(os.getenv(
 # then we decide locally what to full-day vs pause.
 RAPIDAPI_IMPORTANCES = json.loads(os.getenv(
     "RAPIDAPI_IMPORTANCES_JSON",
-    '["low","medium","high"]'
+    '["high"]'
 ))
 
 # ===== News behavior you requested =====
@@ -174,5 +194,6 @@ def apply_news_env_from_config():
     env.setdefault("NEWS_CACHE_TTL_DAYS", str(NEWS_CACHE_TTL_DAYS))
     env.setdefault("NEWS_DEBUG", NEWS_DEBUG)
 
+MAX_WORKERS_HINT=int(os.getenv("MAX_WORKERS_HINT", "11"))
 # Export on import
 apply_news_env_from_config()

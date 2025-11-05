@@ -289,9 +289,9 @@ while True:
     # 3) Entry logic (blocked by news pause windows)
     if not entries_blocked:
         if signal == "buy" and adx >= best_params["adx_threshold"] and best_params["rsi_oversold"] <= rsi <= best_params["rsi_overbought"]:
-            execute_trade(symbol, "buy", price)
+            execute_trade(symbol, "buy", price, timeframe, Bars)
         elif signal == "sell" and adx >= best_params["adx_threshold"] and best_params["rsi_oversold"] <= rsi <= best_params["rsi_overbought"]:
-            execute_trade(symbol, "sell", price)
+            execute_trade(symbol, "sell", price, timeframe, Bars)
     else:
         log_info("[NEWS] Skipping new entries this bar due to news PAUSE window.")
 
