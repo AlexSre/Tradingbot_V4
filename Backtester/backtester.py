@@ -338,9 +338,14 @@ def simulate_params(task):
 
         # bar-close signal evaluation
         sig_prev = str(prev["supertrend_signal"])
-        sig_cur  = str(row["supertrend_signal"])
-        adx      = float(row["adx"])
-        rsi      = float(row["rsi"])
+        sig_cur = str(row["supertrend_signal"])
+
+        # --- safe lookup for ADX and RSI ---
+        adx_cols = [c for c in df.columns if c.upper().startswith("ADX_")]
+        adx = float(row[adx_cols[0]]) if adx_cols else np.nan
+
+        rsi_cols = [c for c in df.columns if c.upper().startswith("RSI_")]
+        rsi = float(row[rsi_cols[0]]) if rsi_cols else np.nan
 
         adx_ok = adx >= float(params["adx_threshold"])
         rsi_ok = float(params["rsi_oversold"]) <= rsi <= float(params["rsi_overbought"])
