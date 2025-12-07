@@ -1,0 +1,18 @@
+{
+    "best_profit": 462.9800000000105,
+    "symbol": "DE40",
+    "timeframe": 1,
+    "params": {
+        "supertrend_period": 5,
+        "supertrend_multiplier": 4,
+        "adx_period": 15,
+        "adx_threshold": 25,
+        "rsi_period": 15,
+        "rsi_oversold": 25,
+        "rsi_overbought": 70,
+        "k_sl": 0.8,
+        "k_trg": 1.0,
+        "k_dist": 0.4,
+        "atr_period": 5
+    }
+}

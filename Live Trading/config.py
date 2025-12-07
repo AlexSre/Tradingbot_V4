@@ -10,7 +10,6 @@ MT5_TERMINAL_PATH = os.getenv("MT5_TERMINAL_PATH", r"C:\Program Files\MetaTrader
 
 # Trading Settings
 START_BALANCE= 100000
-LOT_SIZE = 0.9
 Bars = 10000
 TRAILING_STOP_ENABLED = True
 TRADE_FREQUENCY_SECONDS = 30
@@ -28,6 +27,13 @@ MANUAL_PARAMS = {
     "rsi_oversold": 30,
     "rsi_overbought": 70
 }
+
+# ===== Costs / sizing =====
+ENABLE_RISK_SIZING=True
+RISK_PER_TRADE=float(os.getenv("RISK_PER_TRADE", "0.2"))
+RISK_EXPONENT=float(os.getenv("RISK_EXPONENT", "3.0"))
+BASE_BALANCE=float(os.getenv("BASE_BALANCE", "10000"))
+LOT_SIZE           = float(os.getenv("LOT_SIZE", "0.9"))
 
 # Prop firm logic
 FUNDED_MODE = True
@@ -62,7 +68,7 @@ RAPIDAPI_COUNTRIES = json.loads(os.getenv(
 ))
 RAPIDAPI_IMPORTANCES = json.loads(os.getenv(
     "RAPIDAPI_IMPORTANCES_JSON",
-    '["low","medium","high"]'
+    '["high"]'
 ))
 
 # Full-day keywords (FOMC/CPI/GDP/BoE + holidays)
@@ -94,7 +100,7 @@ NEWS_CACHE_TTL_DAYS     = int(os.getenv("NEWS_CACHE_TTL_DAYS", "30"))
 NEWS_DEBUG              = os.getenv("NEWS_DEBUG", "1")
 
 # Live: how many days ahead to fetch
-NEWS_LOOKAHEAD_DAYS = int(os.getenv("NEWS_LOOKAHEAD_DAYS", "0"))
+NEWS_LOOKAHEAD_DAYS = int(os.getenv("NEWS_LOOKAHEAD_DAYS", "1"))
 
 def apply_news_env_from_config():
     env = os.environ

@@ -1,10 +1,4 @@
 import pandas as pd
-import importlib
-try:
-    import importlib.metadata as _im
-    if not hasattr(importlib, "metadata"): importlib.metadata = _im
-except Exception:
-    pass
 import pandas_ta as ta
 from utils import log_info, log_error
 
