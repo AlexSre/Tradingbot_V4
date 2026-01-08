@@ -40,7 +40,7 @@ FUNDED_MODE = True
 DAILY_MAX_LOSS_PERCENT = 4.5  # If needed in future
 
 # Closing Hour
-CLOSE_HOUR = time(18,0 )
+CLOSE_HOUR = time(15,19 )
 
 # ─────────────────────────────────────────────────────────────────────────────
 # NEWS FILTER (same rules as backtester)
@@ -50,7 +50,7 @@ def _env_bool(name: str, default: bool) -> bool:
     if v is None: return default
     return v.strip().lower() in ("1","true","yes","y","on")
 
-USE_NEWS_FILTER = _env_bool("USE_NEWS_FILTER", True)
+USE_NEWS_FILTER = _env_bool("USE_NEWS_FILTER", False)
 
 # ===== Economic calendar provider (RapidAPI: Investing.com Ultimate API) =====
 RAPIDAPI_BASE     = os.getenv("RAPIDAPI_BASE", "https://investing-com-ultimate-api.p.rapidapi.com")
@@ -100,7 +100,7 @@ NEWS_CACHE_TTL_DAYS     = int(os.getenv("NEWS_CACHE_TTL_DAYS", "30"))
 NEWS_DEBUG              = os.getenv("NEWS_DEBUG", "1")
 
 # Live: how many days ahead to fetch
-NEWS_LOOKAHEAD_DAYS = int(os.getenv("NEWS_LOOKAHEAD_DAYS", "1"))
+NEWS_LOOKAHEAD_DAYS = int(os.getenv("NEWS_LOOKAHEAD_DAYS", "0"))
 
 def apply_news_env_from_config():
     env = os.environ
@@ -128,3 +128,16 @@ def apply_news_env_from_config():
 
 # export on import
 apply_news_env_from_config()
+
+# ─────────────────────────────────────────────────────────────────────────────
+# wfo_backtester Settings
+# ─────────────────────────────────────────────────────────────────────────────
+
+WFO_START=2025-01-01
+WFO_END=2025-06-01
+WFO_TRAIN_DAYS=30
+WFO_TEST_DAYS=7
+WFO_STRIDE_DAYS=7
+WFO_SCORE_MODE= "profit_minus_dd"
+WFO_DD_WEIGHT=1.5
+WFO_USE_NEWS_FILTER=1
