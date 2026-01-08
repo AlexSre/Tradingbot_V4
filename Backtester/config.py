@@ -268,8 +268,8 @@ apply_news_env_from_config()
 # wfo_backtester Settings
 # ─────────────────────────────────────────────────────────────────────────────
 
-WFO_START=2025-01-01
-WFO_END=2025-06-01
+WFO_START="2025-01-01"
+WFO_END="2025-06-01"
 WFO_TRAIN_DAYS=30
 WFO_TEST_DAYS=7
 WFO_STRIDE_DAYS=7

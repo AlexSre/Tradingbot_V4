@@ -129,15 +129,3 @@ def apply_news_env_from_config():
 # export on import
 apply_news_env_from_config()
 
-# ─────────────────────────────────────────────────────────────────────────────
-# wfo_backtester Settings
-# ─────────────────────────────────────────────────────────────────────────────
-
-WFO_START=2025-01-01
-WFO_END=2025-06-01
-WFO_TRAIN_DAYS=30
-WFO_TEST_DAYS=7
-WFO_STRIDE_DAYS=7
-WFO_SCORE_MODE= "profit_minus_dd"
-WFO_DD_WEIGHT=1.5
-WFO_USE_NEWS_FILTER=1
